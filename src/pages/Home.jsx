@@ -117,9 +117,12 @@ export default function Home() {
         <img src="src/assets/img/home5.png" alt="" className=' h-64 sm:h-96 fade-in-image rounded-3xl '/>
       </div>
     </div>
-    <div  className="container grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 ">
+    <div  className="container  m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 text-center items-center flex flex-col">
         <h1 className="p-3 sm:mt-24 mx-auto text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">In Parternship with</h1>
+        <img src="src/assets/img/partner.jpg" alt="" className=' h-24 sm:h-24 fade-in-image rounded-3xl text-center' />
+        <p className="p-3 mt-3 max-w-3xl mx-auto text-center  text-white ">TradingView is a widely recognized and highly regarded platform among traders and investors, with a vast user base spanning the globe. It offers state-of-the-art charting tools that allow market enthusiasts to engage, analyze data, and prepare for btc usd, eth usd trading and various other assets.</p>
     </div>
+    
     </>
   )
 }

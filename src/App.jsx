@@ -7,6 +7,7 @@ import './App.css'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Career from './pages/Career'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='/career' element={<Career />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </>
   )
 }
