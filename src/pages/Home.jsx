@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import { FaChartArea,FaChartBar,FaChartLine } from 'react-icons/fa';
-import {Fade, Slide} from 'react-awesome-reveal';
+
 export default function Home() {
   return (
     <>
     <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit pb-12 mt-0 ">
-    <Slide delay={500} duration={2000} triggerOnce cascade>
 
       <div className="mt-12 md:mt-24 tile lg:row-start-1 lg:col-span-1  p-4">
         <div className="ml-4 gap-3 p-3">
@@ -24,12 +23,9 @@ export default function Home() {
         </div>
 
       </div>
-    </Slide>
-    <Slide direction="left" delay={1000} duration={2000} triggerOnce={true} >
       <div className="mt-12 lg:mt-24 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 ">
         <img src="src/assets/img/home.png" alt="" className='h-64 sm:h-96  '/>
       </div>
-    </Slide>
     </div>
     <div className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 max-h-screen">
         <div className="text-center">
@@ -37,12 +33,9 @@ export default function Home() {
             <p className='p-3 mx-auto  text-l md:text-2xl text-white  tracking-tight'>Start working with Unfluke to manage all your strategies</p>
         </div>
         <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 max-h-screen  ">
-    <Slide direction="right" delay={1000} duration={2000} triggerOnce={true} >  
       <div className="mt-6 lg:mt-20 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 transform transition-all ease-in duration-1000 ">
         <img src="src/assets/img/home2.jpg" alt="" className='h-64 sm:h-96 fade-in-image sm:ml-5 rounded-3xl'/>
       </div>
-    </Slide>
-    <Slide direction="left" delay={1000} duration={2000} triggerOnce={true} >
       <div className="mb-96 sm:mt-36 p-4">
         <div className="ml-4  text-white">
             <h1 className="p-3 mx-auto uppercase text-center text-xl lg:text-2xl text-white font-extrabold tracking-tight">HISTORICAL INTRADAY CHARTS</h1>
@@ -67,14 +60,12 @@ export default function Home() {
         
 
       </div>
-    </Slide>
-    </div>
+        </div>
     </div>
     <hr className="" />
 
     <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 ">
       <div className="mt-6 md:mt-36 tile lg:row-start-1 lg:col-span-1  p-4">
-        <Slide direction="right" delay={1000} duration={2000} triggerOnce={true} >
       <div className="ml-4  text-white">
             <h1 className="p-3 mx-auto uppercase text-center text-xl lg:text-2xl text-white font-extrabold tracking-tight">HISTORICAL INTRADAY CHARTS</h1>
             <div className="">
@@ -95,46 +86,35 @@ export default function Home() {
                 </div>
             </div>
         </div>
-        </Slide>
       </div>
-      <Slide direction="left" delay={1000} duration={2000} triggerOnce={true} >
       <div className="pb-10 mt-6 lg:mt-36 tile lg:row-start-1 lg:col-span-1 mr-2 mx-auto p-4 ">
         <img src="src/assets/img/home3.jpg" alt="" className=' h-64 sm:h-96 fade-in-image rounded-3xl '/>
       </div>
-      </Slide>
     </div>
     <div className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 ">
         <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto   ">
-      <Slide direction="right" delay={1000} duration={2000} triggerOnce={true} >
       <div className="mt-6 lg:mt-20 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 transform transition-all ease-in duration-1000 ">
         <img src="src/assets/img/home4.jpg" alt="" className='h-64 sm:h-96 fade-in-image sm:ml-5 rounded-3xl'/>
       </div>
-      </Slide>
       <div className="sm:mb-64 sm:mt-36 p-4">
-        <Slide direction="left" delay={1000} duration={2000} triggerOnce={true} >
         <div className="ml-4  text-white">
             <h1 className="p-3 sm:mt-24 mx-auto uppercase text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">BACKTEST STRATEGIES</h1>
             
         </div>
-        </Slide>
 
       </div>
     </div>
     </div>
     <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 ">
       <div className="mt-6 md:mt-24 tile lg:row-start-1 lg:col-span-1  p-4">
-        <Slide direction="right" delay={1000} duration={2000} triggerOnce={true} >
       <div className="ml-4  text-white">
             <h1 className="p-3 sm:mt-24 mx-auto uppercase text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">ADVANCE BACKTEST STRATEGIES</h1>
             
         </div>
-        </Slide>
       </div>
-      <Slide direction="left" delay={1000} duration={2000} triggerOnce={true} >
       <div className="pb-10 mt-6 lg:mt-24 tile lg:row-start-1 lg:col-span-1 mr-2 mx-auto p-4 ">
         <img src="src/assets/img/home5.png" alt="" className=' h-64 sm:h-96 fade-in-image rounded-3xl '/>
       </div>
-      </Slide>
     </div>
     <div  className="container  m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 text-center items-center flex flex-col">
         <h1 className="p-3 sm:mt-24 mx-auto text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">In Parternship with</h1>
