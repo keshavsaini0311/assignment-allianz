@@ -18,13 +18,13 @@ function Headet() {
     <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
       Home
     </a>
-    <a href="/about" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+    <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
       About
     </a>
-    <a href="/career" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+    <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
       Career
     </a>
-    <a href="/contact" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+    <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
       Contact
     </a>
 
@@ -41,13 +41,13 @@ function Headet() {
         <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
           Home
         </a>
-        <a href="/about" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+        <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
           About
         </a>
-        <a href="/career" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+        <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
           Career
         </a>
-        <a href="/contact" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
+        <a href="/" className="hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg">
           Contact
         </a>
       </>
