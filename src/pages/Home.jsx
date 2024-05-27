@@ -1,127 +1,167 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import { useState ,useMemo} from 'react'
 import { FaChartArea,FaChartBar,FaChartLine } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
+  const stocks = [
+    { rank: 1, name: 'AAPL', avgDailyProfit: '1.2%', overallProfit: '30%', calmarRatio: 2.5, winRate: '65%', price: '150', action: 'view' },
+    { rank: 2, name: 'GOOGL', avgDailyProfit: '0.8%', overallProfit: '20%', calmarRatio: 3.0, winRate: '70%', price: '2800', action: 'buy' },
+    { rank: 3, name: 'MSFT', avgDailyProfit: '1.5%', overallProfit: '25%', calmarRatio: 2.8, winRate: '68%', price: '250', action: 'sell' },
+    { rank: 4, name: 'TSLA', avgDailyProfit: '2.0%', overallProfit: '40%', calmarRatio: 4.5, winRate: '75%', price: '600', action: 'view' },
+    { rank: 5, name: 'AMZN', avgDailyProfit: '0.5%', overallProfit: '15%', calmarRatio: 1.5, winRate: '60%', price: '3300', action: 'buy' },
+    { rank: 6, name: 'FB', avgDailyProfit: '1.1%', overallProfit: '22%', calmarRatio: 2.7, winRate: '67%', price: '300', action: 'sell' },
+    { rank: 7, name: 'NFLX', avgDailyProfit: '0.9%', overallProfit: '18%', calmarRatio: 2.1, winRate: '63%', price: '500', action: 'view' },
+    { rank: 8, name: 'NVDA', avgDailyProfit: '1.3%', overallProfit: '28%', calmarRatio: 3.3, winRate: '70%', price: '750', action: 'buy' },
+    { rank: 9, name: 'BABA', avgDailyProfit: '0.7%', overallProfit: '19%', calmarRatio: 2.0, winRate: '62%', price: '200', action: 'sell' },
+    { rank: 10, name: 'ORCL', avgDailyProfit: '0.6%', overallProfit: '17%', calmarRatio: 1.8, winRate: '61%', price: '75', action: 'view' },
+    { rank: 11, name: 'ADBE', avgDailyProfit: '1.0%', overallProfit: '20%', calmarRatio: 2.6, winRate: '64%', price: '500', action: 'buy' },
+    { rank: 12, name: 'INTC', avgDailyProfit: '0.4%', overallProfit: '12%', calmarRatio: 1.2, winRate: '58%', price: '60', action: 'sell' },
+    { rank: 13, name: 'CSCO', avgDailyProfit: '0.5%', overallProfit: '15%', calmarRatio: 1.5, winRate: '59%', price: '55', action: 'view' },
+    { rank: 14, name: 'IBM', avgDailyProfit: '0.6%', overallProfit: '16%', calmarRatio: 1.6, winRate: '60%', price: '140', action: 'buy' },
+    { rank: 15, name: 'SAP', avgDailyProfit: '0.7%', overallProfit: '18%', calmarRatio: 1.8, winRate: '61%', price: '120', action: 'sell' },
+    { rank: 16, name: 'AAPL', avgDailyProfit: '1.2%', overallProfit: '30%', calmarRatio: 2.5, winRate: '65%', price: '150', action: 'view' },
+    { rank: 17, name: 'GOOGL', avgDailyProfit: '0.8%', overallProfit: '20%', calmarRatio: 3.0, winRate: '70%', price: '2800', action: 'buy' },
+    { rank: 18, name: 'MSFT', avgDailyProfit: '1.5%', overallProfit: '25%', calmarRatio: 2.8, winRate: '68%', price: '250', action: 'sell' },
+    { rank: 19, name: 'TSLA', avgDailyProfit: '2.0%', overallProfit: '40%', calmarRatio: 4.5, winRate: '75%', price: '600', action: 'view' },
+    { rank: 20, name: 'AMZN', avgDailyProfit: '0.5%', overallProfit: '15%', calmarRatio: 1.5, winRate: '60%', price: '3300', action: 'buy' },
+    { rank: 21, name: 'FB', avgDailyProfit: '1.1%', overallProfit: '22%', calmarRatio: 2.7, winRate: '67%', price: '300', action: 'sell' },
+    { rank: 22, name: 'NFLX', avgDailyProfit: '0.9%', overallProfit: '18%', calmarRatio: 2.1, winRate: '63%', price: '500', action: 'view' },
+    { rank: 23, name: 'NVDA', avgDailyProfit: '1.3%', overallProfit: '28%', calmarRatio: 3.3, winRate: '70%', price: '750', action: 'buy' },
+    { rank: 24, name: 'BABA', avgDailyProfit: '0.7%', overallProfit: '19%', calmarRatio: 2.0, winRate: '62%', price: '200', action: 'sell' },
+    { rank: 25, name: 'ORCL', avgDailyProfit: '0.6%', overallProfit: '17%', calmarRatio: 1.8, winRate: '61%', price: '75', action: 'view' },
+    { rank: 26, name: 'ADBE', avgDailyProfit: '1.0%', overallProfit: '20%', calmarRatio: 2.6, winRate: '64%', price: '500', action: 'buy' },
+    { rank: 27, name: 'INTC', avgDailyProfit: '0.4%', overallProfit: '12%', calmarRatio: 1.2, winRate: '58%', price: '60', action: 'sell' },
+    { rank: 28, name: 'CSCO', avgDailyProfit: '0.5%', overallProfit: '15%', calmarRatio: 1.5, winRate: '59%', price: '55', action: 'view' },
+    { rank: 29, name: 'IBM', avgDailyProfit: '0.6%', overallProfit: '16%', calmarRatio: 1.6, winRate: '60%', price: '140', action: 'buy' },
+    { rank: 30, name: 'SAP', avgDailyProfit: '0.7%', overallProfit: '18%', calmarRatio: 1.8, winRate: '61%', price: '120', action: 'sell' },
+    
+  ];
+
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const itemsPerPage = 10;
+
+  const sortedStocks = useMemo(() => {
+    let sortableStocks = [...stocks];
+    if (sortConfig !== null) {
+      sortableStocks.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortableStocks;
+  }, [stocks, sortConfig]);
+
+  const currentStocks = sortedStocks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const totalPages = Math.ceil(stocks.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+  
+  const getSortIcon = (key) => {
+    if (sortConfig.key !== key) {
+      return faSort;
+    }
+    return sortConfig.direction === 'ascending' ? faSortUp : faSortDown;
+  };
+
   return (
     <>
-    <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit pb-12 mt-0 ">
-
-      <div className="mt-12 md:mt-24 tile lg:row-start-1 lg:col-span-1  p-4">
-        <div className="ml-4 gap-3 p-3">
-            <h1 className="p-3 mx-auto uppercase text-center text-3xl lg:text-4xl text-white font-extrabold tracking-tight">One stop solution to test your Strategy ideas</h1>
-            <p className="p-3 mx-auto  text-l md:text-2xl text-white font-bold tracking-tight">As we are launching a Beta soon, we are giving away 1 month FREE subscription to our early backers. Sign up below to get FREE subscription.</p>
-        </div>
-        <div className="ml-4 gap-3 p-3">
-
-        <button className=" mx-3 p-3  rounded-lg bg-slate-900 hover:scale-105 hover:shadow-md hover:shadow-neutral-400 text-white text-2xl">Sign Up</button>
-        <button className="mx-3 p-3  rounded-lg bg-slate-900 hover:scale-105 hover:shadow-md hover:shadow-neutral-400 text-white text-2xl">Login</button>
-        </div>
-        <div className="ml-4 mt-4 gap-2 p-3 text-white flex flex-col sm:flex-row">
-            <span className='mx-3 p-3 bg-gray-600 rounded-lg bg-opacity-30'><span  className='text-green-500'>&#x2713;  </span>Free 30-day subscription</span>
-            <span className='mx-3 p-3 bg-gray-600 rounded-lg bg-opacity-30'><span  className='text-green-500'>&#x2713;  </span>No credit card needed</span>
-        </div>
-
+   <div className="container mx-auto p-4">
+      <div className=" text-slate-700 p-4 rounded-lg  mb-6 ">
+        <h1 className="text-4xl font-bold text-center">Leaderboard</h1>
       </div>
-      <div className="mt-12 lg:mt-24 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 ">
-        <img src="src/assets/img/home.png" alt="" className='h-64 sm:h-96  '/>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead>
+            <tr className="bg-zinc-300 border-b-2 border-neutral-400">
+              <th onClick={() => requestSort('rank')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Rank <FontAwesomeIcon icon={getSortIcon('overallProfit')} /></th>
+              <th className="py-2 px-4  text-left text-gray-600 font-semibold">Name</th>
+              <th onClick={() => requestSort('avgDailyProfit')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Avg Daily Profit <FontAwesomeIcon icon={getSortIcon('avgDailyProfit')} />
+              </th>
+              <th onClick={() => requestSort('overallProfit')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Overall Profit <FontAwesomeIcon icon={getSortIcon('overallProfit')} />
+              </th>
+              <th onClick={() => requestSort('calmarRatio')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Calmar Ratio <FontAwesomeIcon icon={getSortIcon('calmarRatio')} />
+              </th>
+              <th onClick={() => requestSort('winRate')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Win%(Day) <FontAwesomeIcon icon={getSortIcon('winRate')} />
+              </th>
+              <th onClick={() => requestSort('price')} className="py-2 px-4  text-left text-gray-600 font-semibold cursor-pointer">
+                Price (Rs) <FontAwesomeIcon icon={getSortIcon('price')} />
+              </th>
+              <th className="py-2 px-4 text-left text-gray-600 font-semibold">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentStocks.map((stock, index) => (
+              <tr key={index} className="bg-neutral-100 hover:bg-gray-200 rounded-lg  hover:scale-105 transition-transform duration-300 hover:shadow-md">
+                <td className="py-2 px-6 border-b border-gray-200 ">{stock.rank}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.name}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.avgDailyProfit}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.overallProfit}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.calmarRatio}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.winRate}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">{stock.price}</td>
+                <td className="py-2 px-4 border-b border-gray-200 ">
+                  {stock.action === 'view' && <button className="text-blue-500 hover:underline">View</button>}
+                  {stock.action === 'buy' && <button className="text-green-500 hover:underline">Buy</button>}
+                  {stock.action === 'sell' && <button className="text-red-500 hover:underline">Sell</button>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </div>
-    <div className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 max-h-screen">
-        <div className="text-center">
-            <h1 className="p-3 mx-auto text-center text-3xl lg:text-4xl text-white font-bold tracking-tight">Excellent Features. Excellent Results</h1>
-            <p className='p-3 mx-auto  text-l md:text-2xl text-white  tracking-tight'>Start working with Unfluke to manage all your strategies</p>
-        </div>
-        <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 max-h-screen  ">
-      <div className="mt-6 lg:mt-20 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 transform transition-all ease-in duration-1000 ">
-        <img src="src/assets/img/home2.jpg" alt="" className='h-64 sm:h-96 fade-in-image sm:ml-5 rounded-3xl'/>
-      </div>
-      <div className="mb-96 sm:mt-36 p-4">
-        <div className="ml-4  text-white">
-            <h1 className="p-3 mx-auto uppercase text-center text-xl lg:text-2xl text-white font-extrabold tracking-tight">HISTORICAL INTRADAY CHARTS</h1>
-            <div className="">
-                <div className="mt-7">
-                    <span className='flex gap-3'>
-
-                    <FaChartArea size={30} className='text-green-500'/>
-                    <h1 className='sm:text-xl text-l'>Different Segement Charts</h1>
-                    </span>
-                    <p className='p-3 ml-3'>Get historical intraday charts of Equity, Futures and Options.</p>
-                </div>
-                <div className="mt-7">
-                    <span className='flex gap-3'>
-
-                    <FaChartLine size={30} className='text-green-500'/>
-                    <h1 className='sm:text-xl text-l'>Data Since 2017</h1>
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-
-      </div>
-        </div>
-    </div>
-    <hr className="" />
-
-    <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 ">
-      <div className="mt-6 md:mt-36 tile lg:row-start-1 lg:col-span-1  p-4">
-      <div className="ml-4  text-white">
-            <h1 className="p-3 mx-auto uppercase text-center text-xl lg:text-2xl text-white font-extrabold tracking-tight">HISTORICAL INTRADAY CHARTS</h1>
-            <div className="">
-                <div className="mt-7">
-                    <span className='flex gap-3'>
-
-                    <FaChartArea size={30} className='text-green-500'/>
-                    <h1 className='sm:text-xl text-l'>Different Segement Scanner</h1>
-                    </span>
-                    <p className='p-3 ml-3'>Check scanner results using a combination of different indicators and time frames.</p>
-                </div>
-                <div className="mt-7">
-                    <span className='flex gap-3'>
-
-                    <FaChartLine size={30} className='text-green-500'/>
-                    <h1 className='sm:text-xl text-l'>Data Since 2017 For FNO</h1>
-                    </span>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div className="pb-10 mt-6 lg:mt-36 tile lg:row-start-1 lg:col-span-1 mr-2 mx-auto p-4 ">
-        <img src="src/assets/img/home3.jpg" alt="" className=' h-64 sm:h-96 fade-in-image rounded-3xl '/>
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-4 py-2 w-24 mx-1 rounded-xl ${currentPage === 1 ? 'bg-gray-300' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
+        >
+          Previous
+        </button>
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={`px-4 py-2 mx-1 rounded ${currentPage === index + 1 ? 'bg-blue-700 text-white' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-4 py-2 mx-1 w-24 rounded-xl ${currentPage === totalPages ? 'bg-gray-300' : 'bg-blue-500 text-white hover:bg-blue-700'}`}
+        >
+          Next
+        </button>
       </div>
     </div>
-    <div className="bg-gradient-to-r from-gray-700 to-gray-900 p-3 ">
-        <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto   ">
-      <div className="mt-6 lg:mt-20 tile lg:row-start-1 lg:col-span-1  mx-auto p-4 transform transition-all ease-in duration-1000 ">
-        <img src="src/assets/img/home4.jpg" alt="" className='h-64 sm:h-96 fade-in-image sm:ml-5 rounded-3xl'/>
-      </div>
-      <div className="sm:mb-64 sm:mt-36 p-4">
-        <div className="ml-4  text-white">
-            <h1 className="p-3 sm:mt-24 mx-auto uppercase text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">BACKTEST STRATEGIES</h1>
-            
-        </div>
-
-      </div>
-    </div>
-    </div>
-    <div  className="container lg:grid-rows-1 lg:grid-cols-2 grid m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 ">
-      <div className="mt-6 md:mt-24 tile lg:row-start-1 lg:col-span-1  p-4">
-      <div className="ml-4  text-white">
-            <h1 className="p-3 sm:mt-24 mx-auto uppercase text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">ADVANCE BACKTEST STRATEGIES</h1>
-            
-        </div>
-      </div>
-      <div className="pb-10 mt-6 lg:mt-24 tile lg:row-start-1 lg:col-span-1 mr-2 mx-auto p-4 ">
-        <img src="src/assets/img/home5.png" alt="" className=' h-64 sm:h-96 fade-in-image rounded-3xl '/>
-      </div>
-    </div>
-    <div  className="container  m-auto bg-gradient-to-r from-gray-700 to-gray-900 relative min-h-fit  mt-0 text-center items-center flex flex-col">
-        <h1 className="p-3 sm:mt-24 mx-auto text-center text-xl lg:text-4xl text-white font-extrabold tracking-tight">In Parternship with</h1>
-        <img src="src/assets/img/partner.jpg" alt="" className=' h-24 sm:h-24 fade-in-image rounded-3xl text-center' />
-        <p className="p-3 mt-3 max-w-3xl mx-auto text-center  text-white ">TradingView is a widely recognized and highly regarded platform among traders and investors, with a vast user base spanning the globe. It offers state-of-the-art charting tools that allow market enthusiasts to engage, analyze data, and prepare for btc usd, eth usd trading and various other assets.</p>
-    </div>
-
     </>
+  
   )
 }
