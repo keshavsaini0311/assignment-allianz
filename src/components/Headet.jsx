@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function Headet() {
     const [showMenu, setShowMenu] = useState(false);
   return (
-    <div className=" top-0 sticky bg-gradient-to-r from-gray-500  to-gray-600 ">
+    <div className="z-50 top-0 sticky bg-gradient-to-r from-gray-500  to-gray-600 ">
 
   <header className="  w-full  z-50 flex flex-row items-center justify-between sm:justify-around p-2  bg-inherit backdrop:blur-sm text-white">
   <a

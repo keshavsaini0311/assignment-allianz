@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useState ,useMemo} from 'react'
-import { FaChartArea,FaChartBar,FaChartLine } from 'react-icons/fa';
+import { useState ,useMemo, useEffect, useRef} from 'react'
+import { FaChartBar,FaChartLine } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
-
+import { GrClose } from "react-icons/gr";
+import { GiHamburgerMenu } from "react-icons/gi";
 export default function Home() {
   const stocks = [
     { rank: 1, name: 'AAPL', avgDailyProfit: '1.2%', overallProfit: '30%', calmarRatio: 2.5, winRate: '65%', price: '150', action: 'view' },
@@ -76,7 +77,7 @@ export default function Home() {
     }
     setSortConfig({ key, direction });
   };
-  
+
   const getSortIcon = (key) => {
     if (sortConfig.key !== key) {
       return faSort;
@@ -84,13 +85,224 @@ export default function Home() {
     return sortConfig.direction === 'ascending' ? faSortUp : faSortDown;
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
     <>
+    <div className="hidden  sm:flex gap-2 flex-wrap justify-center font-semibold">
+      <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        <FaChartBar size={20} className='mt-1' />
+        Leaderboard
+        </button>
+        <div ref={dropdownRef} className="mt-2 hover:scale-105 transition-all ease-in-out duration-200 relative inline-block text-left">
+      <div>
+        <button
+          onClick={toggleDropdown}
+          className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Historical Trading
+          <svg
+            className={`-mr-1 ml-2 h-5 w-5 transition-transform duration-300 transform ${isOpen ? 'rotate-180' : ''}`}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 3a1 1 0 01.7.3l5 5a1 1 0 01-1.4 1.4L10 5.42 5.7 9.7a1 1 0 11-1.4-1.4l5-5A1 1 0 0110 3z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              Account settings
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              Support
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              License
+            </a>
+            <form method="POST" action="#">
+              <button
+                type="submit"
+                className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                role="menuitem"
+              >
+                Sign out
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+    <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Historical Charts
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Scanners
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Alerts
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Basic BackTest
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Advanced BackTest
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Pricing
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        My Earing
+        </button>
+    </div>
+
+    <nav className="sm:hidden flex flex-col  gap-1 font-semibold ">
+    <button
+      onClick={() => setShowMenu(!showMenu)}
+      className=" mt-2 w-10 mx-auto ml-3 hover:scale-105 transition-all ease-in-out duration-300 sm:hidden font-bold text-xl hover:bg-gray-500 hover:bg-opacity-50 p-2 rounded-lg"
+      >
+      {showMenu ? <GrClose /> : <GiHamburgerMenu />}
+    </button>
+    {showMenu && (
+      <>
+        <div className=" flex gap-2 flex-wrap justify-center font-semibold">
+      <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        <FaChartBar size={20} className='mt-1' />
+        Leaderboard
+        </button>
+        <div ref={dropdownRef} className="mt-2 hover:scale-105 transition-all ease-in-out duration-200 relative inline-block text-left">
+      <div>
+        <button
+          onClick={toggleDropdown}
+          className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-black  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Historical Trading
+          <svg
+            className={`-mr-1 ml-2 h-5 w-5 transition-transform duration-300 transform ${isOpen ? 'rotate-180' : ''}`}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 3a1 1 0 01.7.3l5 5a1 1 0 01-1.4 1.4L10 5.42 5.7 9.7a1 1 0 11-1.4-1.4l5-5A1 1 0 0110 3z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {isOpen && (
+        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              Account settings
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              Support
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              License
+            </a>
+            <form method="POST" action="#">
+              <button
+                type="submit"
+                className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                role="menuitem"
+              >
+                Sign out
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+    <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Historical Charts
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Scanners
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Alerts
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Basic BackTest
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Advanced BackTest
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        Pricing
+        </button>
+        <button className="flex gap-1 hover:bg-gray-100 hover:scale-105 transition-all ease-in-out duration-200 text-black py-2 px-4 rounded-lg m-2">
+        My Earing
+        </button>
+    </div>
+      </>
+    )}
+  </nav>
+    
    <div className="container mx-auto p-4">
       <div className=" text-slate-700 p-4 rounded-lg  mb-6 ">
         <h1 className="text-4xl font-bold text-center">Leaderboard</h1>
       </div>
-      <div className="overflow-x-auto">
+      <div className="sm:mx-10 overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead>
             <tr className="bg-zinc-300 border-b-2 border-neutral-400">
